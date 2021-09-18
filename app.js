@@ -1,13 +1,27 @@
 require('dotenv').config();
 
-const { Sequelize }  = require('sequelize');
+const Express = require ('express')
+const app = Express()
 
-const sequelize = new Sequelize(
-    process.env.DB_DBNAME, 
-    process.env.DB_USER, 
-    process.env.DB_PASS, 
-    {
-        host: process.env.DB_HOST,
-        dialect: 'postgres'
-    }
-);
+const db = require('./db')
+
+const controllers = require('./controllers/index')
+
+app.use(Express.json())
+
+app.use('/user', controllers.userC)
+app.use('/profile', controllers.profileC)
+app.use('/characters', controller.charactersC)
+app.use('/episodes', controllers.episodesC)
+app.use('/quotes', controllers.quotesC)
+
+db.authenticate()
+    .then(() => db.sync())
+    // .then(() => db.sync({forces: true}))
+    .then(() => {
+        app.listen(process.env.PORT, console.log(`[server]: listening on localhost:${process.env.PORT}`))
+    })
+    .catch(err => {
+        console.log('{server]: Server Crashed')
+        console.log(err)
+    })
