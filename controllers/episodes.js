@@ -18,7 +18,9 @@ router.get('/:eid/quotes/', async (rec, res) => {
     try{
         const episode = await Episodes.findOne({ where: {id: req.params.eid}})
         const quote = await Quotes.findOne({where: {id: /* randomizer */ }})
-        const result = 
+        res.json(quote)
+    } catch (err) {
+        res.json({ error: err })
     }
 })
 
