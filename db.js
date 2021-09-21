@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const Sequelize = require('sequelize');
-const { options } = require('./controllers/profile');
 
 const sequelize = new Sequelize(
     process.env.DB_DBNAME, 
@@ -13,21 +12,6 @@ const sequelize = new Sequelize(
     }
 );
 
-async function synceDb(sequelize, options){
-    const { force, alter} = options
-    try {
-        if (force)
-            await sequelize.sync({force: true})
-        else if (alter)
-            await sequelize.sync({alter: true})
-        else
-            await sequelize.sync()
-    } catch (err){
-        console.log(err)
-    }
-}
-
 module.exports = {
-    synceDb,
     sequelize
 };

@@ -1,22 +1,37 @@
-const Characters = require('./Characters')
-const Episodes = require('./Episodes')
-const Profile = require('./Profile')
-const Quotes = require('./Quotes')
-const User = require('./User')
+const { sequelize } = require('../db')
+const { DataTypes } = require('sequelize')
+
+const DefineCharacters = require('./characters')
+const DefineEpisodes = require('./episodes')
+const DefineProfile = require('./profile')
+const DefineQuotes = require('./quotes')
+const DefineUser = require('./user')
+
+const Characters = DefineCharacters(sequelize, DataTypes)
+const Episodes = DefineEpisodes(sequelize, DataTypes)
+const Profile = DefineProfile(sequelize, DataTypes)
+const Quotes = DefineQuotes(sequelize, DataTypes)
+const User = DefineUser(sequelize, DataTypes)
 
 User.hasOne(Profile, {
     onDelete: "CASCADE"
 });
 Profile.belongsTo(User);
 
-// User.belongsToMany(Quotes, { through: "Fav_Quotes", as: "Liker" });
-// Quotes.belongsToMany(User, { through: "Fav_Quotes", as: "Likee" });
+User.belongsToMany(Quotes, { through: "likes", as: "Liker" });
+Quotes.belongsToMany(User, { through: "likes", as: "Likee" });
 
-// Quotes.belongsTo(User, { through: "Created_By", as: "Creation" });
-// User.belongsToMany(Quotes, { through: "Created_By", as: "Creator" });
+Characters.hasMany(Quotes);
+Quotes.belongsTo(Characters);
 
-// Quotes.belongsTo(Characters);
-// Characters.hasMany(Quotes);
+Episodes.hasMany(Quotes);
+Quotes.belongsTo(Episodes);
+
+Quotes.belongsToMany(Characters, { through: 'charQuotes', as: 'Said' });
+Characters.belongsToMany(Quotes, { through: 'charQuotes', as: 'Sayer' });
+
+sequelize.sync({ alter: true })
+
 
 module.exports = {
     Characters,
