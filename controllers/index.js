@@ -4,7 +4,6 @@ const charactersC = require('./characters');
 const episodesC = require('./episodes');
 const quotesC = require('./quotes');
 const likesC = require('./likes');
-const charQuotesC = require('./charQuotes');
 
 module.exports = {
     userC,
@@ -12,6 +11,5 @@ module.exports = {
     charactersC,
     episodesC,
     quotesC,
-    likesC,
-    charQuotesC
+    likesC
 }

@@ -27,11 +27,7 @@ Quotes.belongsTo(Characters);
 Episodes.hasMany(Quotes);
 Quotes.belongsTo(Episodes);
 
-Quotes.belongsToMany(Characters, { through: 'charQuotes', as: 'Said' });
-Characters.belongsToMany(Quotes, { through: 'charQuotes', as: 'Sayer' });
-
 sequelize.sync({ alter: true })
-
 
 module.exports = {
     Characters,

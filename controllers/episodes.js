@@ -14,10 +14,10 @@ router.get('/:eid', async (req, res) => {
 
 // view random quotes from a specific episode
 
-router.get('/:eid/quotes/', async (rec, res) => {
+router.get('/:eid/quotes/', async (req, res) => {
     try{
         const episode = await Episodes.findOne({ where: {id: req.params.eid}})
-        const quote = await Quotes.findOne({where: {id: /* randomizer */ }})
+        const quote = episode[Math.floor(Math.random() * episode.length)]
         res.json(quote)
     } catch (err) {
         res.json({ error: err })

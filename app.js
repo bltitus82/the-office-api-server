@@ -17,7 +17,6 @@ app.use('/characters', controllers.charactersC)
 app.use('/episodes', controllers.episodesC)
 app.use('/quotes', controllers.quotesC)
 app.use('/likes', controllers.likesC)
-app.use('/charQuotes', controllers.charQuotesC)
 
 db.authenticate()
     // .then(() => db.sync())
