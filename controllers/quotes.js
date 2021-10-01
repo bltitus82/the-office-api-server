@@ -5,7 +5,8 @@ const { likes } = require('../controllers/likes')
 // view a random quote
 router.get('/random', async (req, res) => {
     try{
-        const result = await Quotes[Math.floor(Math.random() * Quotes.length)];
+        const quote = await Quotes.findAll();
+        const result = quote[Math.floor(Math.random() * quote.length)]
         res.json(result)
     } catch (err) {
         res.json({ error: err })
@@ -26,7 +27,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/characters/:cid', async (req, res) => {
     try{
-        const character = await Characters.findOne({ where: {id: req.params.cid} })
+        const character = await Quotes.findAll({ where: {characterId: req.params.cid} })
         const quotes = character[Math.floor(Math.random() * character.length)]
         res.json(quotes)
     } catch (err) {
@@ -43,3 +44,5 @@ router.get('/characters/:cid', async (req, res) => {
 //         const result = await 
 //     }
 // })
+
+module.exports = router;

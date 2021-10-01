@@ -16,9 +16,9 @@ router.get('/:eid', async (req, res) => {
 
 router.get('/:eid/quotes/', async (req, res) => {
     try{
-        const episode = await Episodes.findOne({ where: {id: req.params.eid}})
-        const quote = episode[Math.floor(Math.random() * episode.length)]
-        res.json(quote)
+        const quote = await Quotes.findAll({ where: {episodeId: req.params.eid}})
+        const result = quote[Math.floor(Math.random() * quote.length)]
+        res.json(result)
     } catch (err) {
         res.json({ error: err })
     }

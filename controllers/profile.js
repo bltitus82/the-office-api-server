@@ -1,9 +1,11 @@
 const router = require('express').Router()
 const { User, Profile } = require('../models/index')
+const validateJWT = require('../middleware/jwt-validation')
+const { restart } = require('nodemon')
 // const validateJWT = require('../middleware/jwt-validation');
 
 //view a users profile
-router.get('/:id', async(req, res) => {
+router.get('/:id', validateJWT, async(req, res) => {
     try{
         const one = await Profile.findOne({ where: { id: req.params.id }})
         res.json(one)
@@ -13,12 +15,12 @@ router.get('/:id', async(req, res) => {
 })
 
 //create a user profile
-router.post('/', async (req, res) => {
+router.post('/', validateJWT, async (req, res) => {
     try {
         const result = await Profile.create({
             userName: req.body.profile.userName,
-            userBio: req.body.profile.userBio,
-            imageURL: req.body.profile.imageURL,
+            userBio: null,
+            imageURL: null,
             admin: false,
             userId: req.body.userId
         })
@@ -28,5 +30,24 @@ router.post('/', async (req, res) => {
     } 
 })
 
+//update user profile
+router.put('/', validateJWT, async (req, res) => {
+        const imageURL = null; // Come back to this
+
+    try {
+
+        await Profile.update({
+            userBio: req.body.profile.userBio}, 
+            {where: {userId: req.User.id}}
+        )
+        res.status(200).json({
+            message: "User profile updated."
+        }) 
+    } catch (err) {
+        res.status(500).json({
+            message: `Update failed, ${err}`
+    })
+}
+})
 
 module.exports = router;

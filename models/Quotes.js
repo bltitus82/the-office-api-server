@@ -1,14 +1,15 @@
 const DefineQuotes = (sequelize, DataTypes) => {
-const Quotes = sequelize.define("Quotes", {
+const quotes = sequelize.define("quotes", {
     quote: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(6000),
         allowNull: false
     },
     likes: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 })
-return Quotes
+return quotes
 };
 
 module.exports = DefineQuotes;

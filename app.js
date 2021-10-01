@@ -2,29 +2,29 @@ require('dotenv').config();
 
 const Express = require('express')
 const app = Express()
-
-const port = 3000
-
-const db = require('./db')
+let cors = require('cors');
+app.use(require('./middleware/headers'));
+const {sequelize} = require('./db')
 
 const controllers = require('./controllers/index')
 
 app.use(Express.json())
 
-app.use('/user', controllers.userC)
-app.use('/profile', controllers.profileC)
-app.use('/characters', controllers.charactersC)
-app.use('/episodes', controllers.episodesC)
-app.use('/quotes', controllers.quotesC)
-app.use('/likes', controllers.likesC)
+app.use('/user', cors(), controllers.userC)
+app.use('/profile', cors(), controllers.profileC)
+app.use('/characters', cors(), controllers.charactersC)
+app.use('/episodes', cors(), controllers.episodesC)
+app.use('/quotes', cors(), controllers.quotesC)
+app.use('/likes', cors(), controllers.likesC)
 
-db.authenticate()
-    // .then(() => db.sync())
-    .then(() => db.sync({force: true}))
+sequelize.authenticate()
+    .then(() => sequelize.sync())
+    // .then(() => sequelize.sync({force: true}))
     .then(() => {
-        app.listen(process.env.PORT, console.log(`[server]: listening on localhost:${process.env.PORT}`))
+        app.listen(process.env.PORT, () => { console.log(`[server]: listening on localhost:${process.env.PORT}`)
     })
-    .catch(err => {
+    })
+    .catch((err) => {
         console.log('{server]: Server Crashed')
         console.log(err)
     })

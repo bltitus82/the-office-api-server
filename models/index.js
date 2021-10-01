@@ -6,20 +6,22 @@ const DefineEpisodes = require('./episodes')
 const DefineProfile = require('./profile')
 const DefineQuotes = require('./quotes')
 const DefineUser = require('./user')
+const DefineLikes = require('./likes')
 
 const Characters = DefineCharacters(sequelize, DataTypes)
 const Episodes = DefineEpisodes(sequelize, DataTypes)
 const Profile = DefineProfile(sequelize, DataTypes)
 const Quotes = DefineQuotes(sequelize, DataTypes)
 const User = DefineUser(sequelize, DataTypes)
+const Likes = DefineLikes(sequelize, DataTypes)
 
 User.hasOne(Profile, {
     onDelete: "CASCADE"
 });
 Profile.belongsTo(User);
 
-User.belongsToMany(Quotes, { through: "likes", as: "Liker" });
-Quotes.belongsToMany(User, { through: "likes", as: "Likee" });
+Profile.belongsToMany(Quotes, { through: Likes, as: 'Likee' });
+Quotes.belongsToMany(Profile, { through: Likes, as: 'Liker' });
 
 Characters.hasMany(Quotes);
 Quotes.belongsTo(Characters);
@@ -34,5 +36,6 @@ module.exports = {
     Episodes,
     Profile,
     Quotes,
-    User
+    User,
+    Likes
 }

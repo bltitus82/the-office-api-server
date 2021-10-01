@@ -1,27 +1,27 @@
 const DefineEpisodes = (sequelize, DataTypes) => {
-const Episodes = sequelize.define("Episodes", {
+const episodes = sequelize.define("episodes", {
     title: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         allowNull: false
     },
     airDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     season: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     }, 
     epNumber: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     synopsis: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(5000),
         allowNull: false
     },
 })
-return Episodes
+return episodes
 };
 
 module.exports = DefineEpisodes;

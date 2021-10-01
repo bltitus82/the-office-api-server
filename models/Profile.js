@@ -1,7 +1,5 @@
-const DefineCharacters = require("./characters");
-
 const DefineProfile = (sequelize, DataTypes) => {
-const Profile = sequelize.define("Profile", {
+const profile = sequelize.define("profile", {
     userName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -15,9 +13,10 @@ const Profile = sequelize.define("Profile", {
     },
     admin: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
-return Profile
+return profile
 };
 
-module.exports = DefineCharacters;
+module.exports = DefineProfile;
