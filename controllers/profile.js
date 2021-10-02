@@ -14,6 +14,16 @@ router.get('/:id', validateJWT, async(req, res) => {
     }
 })
 
+//view all users
+router.get('/all', validateJWT, async(req, res) => {
+    try{
+        const result = await Profile.findAll()
+        res.json(result)
+    } catch (err) {
+        res.json({ error: err })
+    }
+})
+
 //create a user profile
 router.post('/', validateJWT, async (req, res) => {
     try {
