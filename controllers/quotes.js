@@ -3,7 +3,7 @@ const { Episodes, Quotes, Characters, Profile } = require('../models/index')
 const { likes } = require('../controllers/likes')
 
 // view a random quote
-router.get('/random', async (req, res) => {
+router.get('/', async (req, res) => {
     try{
         const quote = await Quotes.findAll();
         const result = quote[Math.floor(Math.random() * quote.length)]

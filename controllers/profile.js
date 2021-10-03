@@ -14,6 +14,17 @@ router.get('/:id', validateJWT, async(req, res) => {
     }
 })
 
+//view a profile by UserID
+router.get('/user/:id', validateJWT, async (req, res) => {
+    try{
+        const result = await Profile.findOne({ where: {userId: req.params.id}})
+        res.json(result)
+    } catch (err) {
+        res.json({ error: err })
+        console.log(err)
+    }
+})
+
 //view all users
 router.get('/all', validateJWT, async(req, res) => {
     try{
@@ -58,6 +69,22 @@ router.put('/', validateJWT, async (req, res) => {
             message: `Update failed, ${err}`
     })
 }
+})
+
+// delete a user and profile
+router.delete('/:id', validateJWT, async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ where: {id: req.params.pid}})
+        const user = await User.findOne({ where: {id: profile.userId}})
+        const result = await user.delete
+        res.status(200).json({
+            message: "User account deleted."
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: `User account delete failed, ${err}`
+        })
+    }
 })
 
 module.exports = router;
