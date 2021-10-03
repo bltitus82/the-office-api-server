@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { Episodes, Quotes, Characters, Profile } = require('../models/index')
+const validateJWT = require('../middleware/jwt-validation')
 const { likes } = require('../controllers/likes')
 
 // view a random quote
@@ -35,6 +36,23 @@ router.get('/characters/:cid', async (req, res) => {
     }
 }) 
 
+// add a like to the quote counter
+
+router.put('/:id', validateJWT, async (req, res) => {
+    try{
+        await Quotes.update({
+            likes: req.body.quotes.likes},
+            {where: {id: req.params.id}}
+        )
+        res.status(200).json({
+            message: "Success"
+        }) 
+    } catch (err) {
+        res.status(500).json({
+            message: `Like failed, ${err}`
+        })
+    }
+})
 
 // view most-liked quote
 // router.get('/trending', async (req, res) => {
