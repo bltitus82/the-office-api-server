@@ -11,7 +11,6 @@ const controllers = require('./controllers/index')
 app.use(Express.json())
 
 app.use('/user', cors(), controllers.userC)
-app.use('/profile', cors(), controllers.profileC)
 app.use('/characters', cors(), controllers.charactersC)
 app.use('/episodes', cors(), controllers.episodesC)
 app.use('/quotes', cors(), controllers.quotesC)

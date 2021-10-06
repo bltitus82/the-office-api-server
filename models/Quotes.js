@@ -7,6 +7,10 @@ const quotes = sequelize.define("quotes", {
     likes: {
         type: DataTypes.INTEGER,
         defaultValue: 0
+    },
+    public: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
 return quotes
