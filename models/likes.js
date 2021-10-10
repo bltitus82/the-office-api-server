@@ -1,6 +1,6 @@
 const DefineLikes = (sequelize, DataTypes) => {
     const likes = sequelize.define("likes", {
-    profileId: {
+    userId: {
         type: DataTypes.INTEGER, 
         allowNull: false
     }, 

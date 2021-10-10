@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { Episodes, Quotes, Characters, Profile } = require('../models/index')
 const validateJWT = require('../middleware/jwt-validation')
+const validateAdmin = require('../middleware/validate-admin')
 const { likes } = require('../controllers/likes')
 const { restart } = require('nodemon')
 
@@ -45,7 +46,7 @@ router.post('/submit', async (req, res) => {
 // view quotes to be approved
 router.get('/approve', [validateJWT, validateAdmin], async(req, res) => {
     try {
-        const quotes = await Quote.findAll({ where: { public: false } });
+        const quotes = await Quotes.findAll({ where: { public: false } });
         res.status(200).json(quotes); 
     } catch (err) {
         res.status(500).json({ error: err });
@@ -64,7 +65,7 @@ router.put('/:id', [validateJWT, validateAdmin], async(req, res) => {
     }
     const quoteId = req.params.id;
     try {
-        const result = await Quote.update(updateQuote, { where: { id: quoteId } })
+        const result = await Quotes.update(updateQuote, { where: { id: quoteId } })
         res.status(200).json(quotes);
     } catch (err) {
         res.status(500).json({ error: err })
@@ -88,7 +89,7 @@ router.get('/characters/:cid', async (req, res) => {
 router.put('/:id', validateJWT, async (req, res) => {
     try{
         await Quotes.update({
-            likes: req.body.quotes.likes},
+            likes: req.body},
             {where: {id: req.params.id}}
         )
         res.status(200).json({

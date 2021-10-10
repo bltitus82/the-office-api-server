@@ -36,6 +36,7 @@ router.post('/register', async (req, res) => {
                 message: "Registration successful!",
                 email: email,
                 sessionToken: token,
+                User: newUser.id
             })
         } catch (err) {
             if (err instanceof UniqueConstraintError) {
