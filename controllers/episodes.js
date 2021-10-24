@@ -11,6 +11,25 @@ router.get('/:eid', async (req, res) => {
     }
 })
 
+// get list of an entire season
+router.get('/season/:sid', async (req, res) => {
+    try {
+        const season = await Episodes.findAll({where: {season: req.params.sid}})
+        res.json(season)
+    } catch (err) {
+        res.json({ error: err })
+    }
+})
+
+// get list of all seasons
+router.get('/', async (req, res) => {
+    try {
+        const allEpisodes = await Episodes.findAll({})
+        res.json(allEpisodes)
+    } catch (err) {
+        res.json({ error: err })
+    }
+})
 
 // view random quotes from a specific episode
 

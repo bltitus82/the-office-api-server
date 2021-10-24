@@ -1,6 +1,6 @@
 const validateAdmin = async(req, res, next) => {
-    const { admin } = req.member
-    if(isAdmin === false) {
+    const { admin } = req.User
+    if(admin === false) {
         res.status(401).send({ message: 'Not Authorized' });
     } else {
         next();

@@ -54,7 +54,7 @@ router.get('/approve', [validateJWT, validateAdmin], async(req, res) => {
 });
 
 // edit Quote
-router.put('/:id', [validateJWT, validateAdmin], async(req, res) => {
+router.put('/:id/edit', [validateJWT, validateAdmin], async(req, res) => {
     const { quote, characterId, episodeId, likes, public } = req.body.Quote;
     const updateQuote = {
         quote,
@@ -89,7 +89,7 @@ router.get('/characters/:cid', async (req, res) => {
 router.put('/:id', validateJWT, async (req, res) => {
     try{
         await Quotes.update({
-            likes: req.body},
+            likes: req.body.quotes.likes},
             {where: {id: req.params.id}}
         )
         res.status(200).json({
