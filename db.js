@@ -3,12 +3,10 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(
-    process.env.DB_DBNAME, 
-    process.env.DB_USER, 
-    process.env.DB_PASS, 
+    process.env.DATABASE_URL ||
+    `postgresql://postgres:${encodeURIComponent(process.env.DB_PASS)}@localhost/the-office-api`,
     {
-        host: process.env.DB_HOST,
-        dialect: 'postgres'
+        dialect: 'postgres',
     }
 );
 
