@@ -17,8 +17,8 @@ app.use('/quotes', cors(), controllers.quotesC)
 app.use('/likes', cors(), controllers.likesC)
 
 sequelize.authenticate()
-    .then(() => sequelize.sync())
-    // .then(() => sequelize.sync({force: true}))
+    // .then(() => sequelize.sync())
+    .then(() => sequelize.sync({force: true}))
     .then(() => {
         app.listen(process.env.PORT, () => { console.log(`[server]: listening on localhost:${process.env.PORT}`)
     })
