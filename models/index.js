@@ -1,18 +1,11 @@
 const { sequelize } = require('../db')
-const { DataTypes } = require('sequelize')
+// const { DataTypes } = require('sequelize')
 
-const DefineEpisodes = require('./episodes')
-const DefineCharacters = require('./characters')
-
-const DefineQuotes = require('./quotes')
-const DefineUser = require('./user')
-const DefineLikes = require('./likes')
-
-const Characters = DefineCharacters(sequelize, DataTypes)
-const Episodes = DefineEpisodes(sequelize, DataTypes)
-const Quotes = DefineQuotes(sequelize, DataTypes)
-const User = DefineUser(sequelize, DataTypes)
-const Likes = DefineLikes(sequelize, DataTypes)
+const Episodes = require('./episodes')
+const Characters = require('./characters')
+const Quotes = require('./quotes')
+const User = require('./user')
+const Likes = require('./likes')
 
 User.belongsToMany(Quotes, { through: Likes, as: 'Likee' });
 Quotes.belongsToMany(User, { through: Likes, as: 'Liker' });
@@ -23,7 +16,7 @@ Quotes.belongsTo(Characters);
 Episodes.hasMany(Quotes);
 Quotes.belongsTo(Episodes);
 
-sequelize.sync({ alter: true })
+// sequelize.sync({ alter: true })
 
 module.exports = {
     Characters,

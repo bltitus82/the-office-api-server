@@ -1,5 +1,7 @@
-const DefineUser = (sequelize, DataTypes) => {
-const User = sequelize.define("user", {
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db')
+
+const DefineUser = sequelize.define("user", {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,7 +27,5 @@ const User = sequelize.define("user", {
         defaultValue: false
     }
 })
-return User
-}
 
 module.exports = DefineUser;

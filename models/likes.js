@@ -1,5 +1,7 @@
-const DefineLikes = (sequelize, DataTypes) => {
-    const likes = sequelize.define("likes", {
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db')
+
+const DefineLikes = sequelize.define("likes", {
     userId: {
         type: DataTypes.INTEGER, 
         allowNull: false
@@ -9,8 +11,5 @@ const DefineLikes = (sequelize, DataTypes) => {
         allowNull: false
     }
 })
-
-return likes
-};
 
 module.exports = DefineLikes;

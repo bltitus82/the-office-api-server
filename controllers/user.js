@@ -16,7 +16,6 @@ const bcrypt = require('bcryptjs');
 //     }
 // })
 
-
 // User Registration Endpoint
 router.post('/register', async (req, res) => { 
     let { email, password, userName } = req.body.user;    

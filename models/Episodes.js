@@ -1,5 +1,7 @@
-const DefineEpisodes = (sequelize, DataTypes) => {
-const episodes = sequelize.define("episodes", {
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db')
+
+const DefineEpisodes = sequelize.define("episodes", {
     title: {
         type: DataTypes.STRING(1000),
         allowNull: false
@@ -21,7 +23,5 @@ const episodes = sequelize.define("episodes", {
         allowNull: false
     },
 })
-return episodes
-};
 
 module.exports = DefineEpisodes;

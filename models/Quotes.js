@@ -1,5 +1,7 @@
-const DefineQuotes = (sequelize, DataTypes) => {
-const quotes = sequelize.define("quotes", {
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db')
+
+const DefineQuotes = sequelize.define("quotes", {
     quote: {
         type: DataTypes.STRING(6000),
         allowNull: false
@@ -13,7 +15,5 @@ const quotes = sequelize.define("quotes", {
         defaultValue: false
     }
 })
-return quotes
-};
 
 module.exports = DefineQuotes;

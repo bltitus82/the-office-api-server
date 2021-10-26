@@ -1,5 +1,7 @@
-const DefineCharacters = (sequelize, DataTypes) => {
-    const characters = sequelize.define("characters", {
+const { DataTypes } = require('sequelize')
+const sequelize = require('../db')
+
+const DefineCharacters = sequelize.define("characters", {
     charName: {
         type: DataTypes.STRING, 
         allowNull: false,
@@ -18,8 +20,5 @@ const DefineCharacters = (sequelize, DataTypes) => {
         allowNull: false
     }
 })
-
-return characters
-};
 
 module.exports = DefineCharacters;
