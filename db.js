@@ -7,6 +7,12 @@ const sequelize = new Sequelize(
     `postgresql://postgres:${encodeURIComponent(process.env.DB_PASS)}@localhost/the-office-api`,
     {
         dialect: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false, // very important
+            }
+        }
     }
 );
 
