@@ -1,8 +1,9 @@
 const { sequelize } = require('../db')
 const { DataTypes } = require('sequelize')
 
-const DefineCharacters = require('./characters')
 const DefineEpisodes = require('./episodes')
+const DefineCharacters = require('./characters')
+
 const DefineQuotes = require('./quotes')
 const DefineUser = require('./user')
 const DefineLikes = require('./likes')
